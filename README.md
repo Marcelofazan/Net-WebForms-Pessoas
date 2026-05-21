@@ -1,4 +1,4 @@
-## CRUD-AspNet-WebForm-MySQL
+## 🌍 CRUD-AspNet-WebForm-MySQL
 Exemplo de criação CRUD C# WebForms com banco de dados MySQL.
 
 #### O que voçê vai ver nesse Projeto
@@ -10,7 +10,7 @@ Exemplo de criação CRUD C# WebForms com banco de dados MySQL.
 - Para executar a aplicação é necessário a executar o Script do MySQL.
 - Necessário varinha mágica na Solução do Visual Studio 
 
-#### String de conexão do banco
+#### ⚠️ String de conexão do banco
 Modifique a string de conexão no arquivo **app.config**, no trecho indicado:
 
 ```bash
