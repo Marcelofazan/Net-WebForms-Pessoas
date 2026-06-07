@@ -5,6 +5,7 @@ Exemplo de criação CRUD C# WebForms com banco de dados MySQL.
 | Tecnologia | Descrição |
 |-----------|-----------|
 | **Blob** | Seleção de Arquivos de imagens, gravação e visualização |
+| **WebForm** | Tecnologia tradicional da Microsoft usada para criar sites e aplicativos web |
 
 #### 🔄 Executar a aplicação
 - Para executar a aplicação é necessário a executar o Script do MySQL.
