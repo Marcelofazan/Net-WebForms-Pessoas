@@ -10,7 +10,7 @@ Exemplo de CRUD WebForms em C# .NET com banco de dados MySQL.
 | **Blob** | Tipo de dado no MySQL utilizado para armazenar dados binários, como imagens, áudios, vídeos ou documentos PDF|
 | **WebForms** | Tecnologia tradicional da Microsoft usada para criar sites e aplicativos web, usando uma lógica de "arrastar e soltar" |
 
-#### Requisitos do Projeto
+#### 💬 Requisitos do Projeto
 - Para executar a aplicação é necessário a executar o Script do MySQL.
 
 #### ⚠️ String de conexão do banco
