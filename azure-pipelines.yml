@@ -1,17 +1,43 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
+# Azure DevOps Pipeline para Projetos WebForms / .NET Framework Legados
 trigger:
 - master
 
+# Define o uso de agentes Windows hospedados pela Microsoft (essencial para o MSBuild)
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
+
+# Definição de variáveis reutilizáveis no escopo global
+variables:
+  solutionPath: '**/Simples.csproj' # Você pode apontar direto para o seu .csproj ou arquivo .sln
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
 
 steps:
-- script: dotnet restore
-  displayName: 'Recuperar os pacotes'
+# 1. Garante que a ferramenta NuGet está disponível no ambiente
+- task: NuGetToolInstaller@1
+  displayName: 'Garantir Instalador do NuGet'
 
-- script: dotnet build
-  displayName: 'Buildando o projeto'
+# 2. Restaura os pacotes do projeto (como o MySql.Data e o DotNetCompilerPlatform presentes no seu .csproj)
+- task: NuGetCommand@2
+  displayName: 'Restaurar Pacotes NuGet (.NET Framework)'
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solutionPath)'
+
+# 3. Executa a compilação oficial através das ferramentas do Visual Studio / MSBuild
+- task: VSBuild@1
+  displayName: 'Compilar Projeto WebForms / .NET Framework'
+  inputs:
+    solution: '$(solutionPath)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    clean: true
+
+# 4. Publica os artefatos compilados (arquivos prontos para o IIS) no servidor do Azure DevOps
+- task: PublishBuildArtifacts@1
+  displayName: 'Publicar Artefato Gerado'
+  inputs:
+    PathtoPublish: '$(build.artifactStagingDirectory)'
+    ArtifactName: 'drop-webforms'
+    publishLocation: 'Container'
