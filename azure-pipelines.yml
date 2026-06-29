@@ -8,7 +8,8 @@ pool:
 
 # Definição de variáveis reutilizáveis no escopo global
 variables:
-  solutionPath: '**/Simples.csproj' # Você pode apontar direto para o seu .csproj ou arquivo .sln
+  solutionPath: '**/*.slnx'       # Mapeia o seu arquivo de solução moderno
+  projectPath: '**/Simples.csproj' # Mapeia o seu projeto WebForms específico
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -17,18 +18,19 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: 'Garantir Instalador do NuGet'
 
-# 2. Restaura os pacotes do projeto (como o MySql.Data e o DotNetCompilerPlatform presentes no seu .csproj)
+# 2. Restaura os pacotes contornando o erro de falta de mapeamento de diretório
 - task: NuGetCommand@2
   displayName: 'Restaurar Pacotes NuGet (.NET Framework)'
   inputs:
     command: 'restore'
-    restoreSolution: '$(solutionPath)'
+    restoreSolution: '$(projectPath)'
+    arguments: '-PackagesDirectory $(Build.SourcesDirectory)/packages' # Força a criação da pasta na raiz
 
-# 3. Executa a compilação oficial através das ferramentas do Visual Studio / MSBuild
+# 3. Executa a compilação oficial através das ferramentas do Visual Studio / MSBuild focando no projeto
 - task: VSBuild@1
   displayName: 'Compilar Projeto WebForms / .NET Framework'
   inputs:
-    solution: '$(solutionPath)'
+    solution: '$(projectPath)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
@@ -41,3 +43,4 @@ steps:
     PathtoPublish: '$(build.artifactStagingDirectory)'
     ArtifactName: 'drop-webforms'
     publishLocation: 'Container'
+Use o código com cuidado
