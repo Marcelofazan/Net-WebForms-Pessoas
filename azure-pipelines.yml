@@ -1,4 +1,3 @@
-# Azure DevOps Pipeline para Projetos WebForms / .NET Framework Legados
 trigger:
 - master
 
@@ -18,9 +17,8 @@ steps:
 - task: NuGetCommand@2
   displayName: 'Restaurar Pacotes NuGet (.NET Framework)'
   inputs:
-    command: 'restore'
-    restoreSolution: '$(projectPath)'
-    arguments: '-PackagesDirectory $(Build.SourcesDirectory)/packages'
+    command: 'custom'
+    customCommand: 'restore $(projectPath) -PackagesDirectory $(Build.SourcesDirectory)\packages'
 
 - task: VSBuild@1
   displayName: 'Compilar Projeto WebForms / .NET Framework'
