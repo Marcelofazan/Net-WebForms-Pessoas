@@ -1,8 +1,8 @@
 ## 🌐 Net-WebForms-Pessoas
-Exemplo de projeto Pessoas em WebForms em C# ASP.NETFramework com banco de dados MySQL.
+Exemplo de projeto WebForms em C# ASP.NETFramework com banco de dados MySQL.
 
 #### 🎨 Aqui está uma demonstração do Projeto
-<img width="800" height="350" alt="WebForm-CRUD-MySql" src="https://github.com/user-attachments/assets/a3eafec4-1d72-4bd6-be12-45f7cfbea727" />
+<img width="700" height="350" alt="WebForm-CRUD-MySql" src="https://github.com/user-attachments/assets/a3eafec4-1d72-4bd6-be12-45f7cfbea727" />
 
 #### 📋 O que você vai encontrar neste projeto
 | Tecnologia | Descrição |
